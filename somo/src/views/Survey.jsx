@@ -6,7 +6,6 @@ import TButton from "../core/TButton";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 
-
 export default function Surveys() {
   const { showToast } = useStateContext();
   const [surveys, setSurveys] = useState([]);
@@ -48,11 +47,11 @@ const youtubeLink = ''
 
   return (
     <div>
-      {loading && <div className="user-details">Loading...</div>}
+      {loading && <div>Loading...</div>}
       {!loading && (
         <div>
           {surveys.length === 0 && (
-            <div className="py-8 text-center text-gray-700">
+            <div >
               Courses Available 
             </div>
           )}

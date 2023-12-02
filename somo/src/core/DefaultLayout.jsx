@@ -31,14 +31,15 @@ export default function DefaultLayout() {
     }, [])
 
     return (
-        <div id="defaultLayout">
-            <div className="content">
+        <div id="defaultLayout" className="content">
+            <div >
                 <header>
                     <div>
                         <Link to="/dashboard" className="Link"><UserIcon style={{width:'20px'}}/>Dashboard</Link>
-                        
-                        <div>
+        
+                    </div>
                         <br></br>
+                    <div>
                         <Link to="/courses" className="Link"><ListBulletIcon style={{width:'20px'}}/>Courses</Link>
 
                     </div>
@@ -48,14 +49,9 @@ export default function DefaultLayout() {
 
                     </div>
                     <br></br>
-                    </div>
-                   <div>
                     <Link to ='/setting'><Cog8ToothIcon style={{width:'30px'}}/></Link>
                     <br></br>
-                    <div>
                         <Link to='/notification'><BellAlertIcon style={{width:'30px'}}/></Link>
-                    </div>
-                   </div>
                    
                 </header>
                 <main>

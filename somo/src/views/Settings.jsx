@@ -19,17 +19,10 @@ import { Link } from 'react-router-dom';
 
 
 const Settings = () => {
-  const [theme, setTheme] = useState('light');
-  const [showAdvanced, setShowAdvanced] = useState(false);
+
   const [notification, setNotification] = useState(null);
 
-  const handleThemeChange = (newTheme) => {
-    setTheme(newTheme);
-  };
 
-  const handleToggleAdvanced = () => {
-    setShowAdvanced(!showAdvanced);
-  };
 
   const showNotification = (type, message) => {
     setNotification({ type, message });
