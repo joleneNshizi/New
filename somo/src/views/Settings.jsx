@@ -48,7 +48,7 @@ const Settings = () => {
               <SettingsLabel>Study Mode Preferences:</SettingsLabel>
               <CheckboxLabel>
                 <CheckboxInput type="checkbox" />
-                Enable Pomodoro Technique
+                Enable No-Disturb Technique
               </CheckboxLabel>
               <SettingsLabel>Session Duration:</SettingsLabel>
               <input type="number" placeholder="Enter session duration (minutes)" />

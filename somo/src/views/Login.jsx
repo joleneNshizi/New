@@ -1,25 +1,20 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../axios";
-import { useStateContext } from "../contexts/ContextProvider";
+import { login } from '../axios';
 import '../index.css'
 
 export default function Login() {
-  const { setCurrentUser, setUserToken } = useStateContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState({ __html: "" });
 
   const onSubmit = (ev) => {
     ev.preventDefault();
-    setError({ __html: "" });
-
-    axiosClient
-      .post("/login", {
-        email,
-        password,
-      })
+    
+    login({
+      email,
+      password,
+    })
       .then(({ data }) => {
         setCurrentUser(data.user);
         setUserToken(data.token);
@@ -37,9 +32,10 @@ export default function Login() {
   };
 
   return (
+    <div className="user-details">
     <div className="login-container">
       <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-        Sign in to your account
+        Login to your account
       </h2>
       <p className="mt-2 text-center text-sm text-gray-600">
         Or{" "}
@@ -51,9 +47,6 @@ export default function Login() {
         </Link>
       </p>
 
-      {error.__html && (
-        <div className="error-message" dangerouslySetInnerHTML={error}></div>
-      )}
 
       <form onSubmit={onSubmit} className="form-container" action="#" method="POST">
         <input type="hidden" name="remember" defaultValue="true" />
@@ -108,11 +101,12 @@ export default function Login() {
             <span className="flex items-center">
               <LockClosedIcon style={{width:'20px'}}
               />
-              Sign in
+              Login
             </span>
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 }

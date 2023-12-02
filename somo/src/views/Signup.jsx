@@ -1,60 +1,46 @@
-import { Link } from "react-router-dom";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
-import axiosClient from '../axios.jsx';
-import { useStateContext } from "../contexts/ContextProvider.jsx";
-import '../index.css'
+import { signup } from '../axios';
+import '../index.css';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Signup() {
-  const { setCurrentUser, setUserToken } = useStateContext();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [error, setError] = useState({ __html: "" });
 
   const onSubmit = (ev) => {
     ev.preventDefault();
-    setError({ __html: "" });
-
-    axiosClient
-      .post("/signup", {
-        name: fullName,
-        email,
-        password,
-        password_confirmation: passwordConfirmation,
-      })
-      .then(({ data }) => {
-        setCurrentUser(data.user);
-        setUserToken(data.token);
-      })
-      .catch((error) => {
-        if (error.response) {
-          const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], []);
-          console.log(finalErrors);
-          setError({ __html: finalErrors.join('<br>') });
-        }
-        console.error(error);
-      });
+    
+    signup({
+      name: fullName,
+      email,
+      password,
+    })
+    .then(({ data }) => {
+      // Handle successful signup
+      setCurrentUser(data.user);
+      setUserToken(data.token);
+      console.log("Signup successful", data);
+    })
+    .catch((error) => {
+      // Handle signup error
+      console.error("Signup error", error);
+    });
   };
 
-// ... (rest of the component remains unchanged)
 
-return (
-  <div className="signup-container">
-    <h2 className="signup-title">Signup for Free</h2>
-    <p className="text-center text-sm text-gray-600">
-      Or{" "}
-      <Link to="/login" className="signup-link">
-        Login with your account
-      </Link>
-    </p>
 
-    {error.__html && (
-      <div className="error-message" dangerouslySetInnerHTML={error}></div>
-    )}
+  return (
+    <div className="signup-container">
+      <h2 className="signup-title">Signup for Free</h2>
+      <p className="text-center text-sm text-gray-600">
+        Or{" "}
+        <Link to="/login" className="signup-link">
+          Login with your account
+        </Link>
+      </p>
 
-    <form onSubmit={onSubmit} className="mt-8 space-y-6" action="#" method="POST">
+      <form onSubmit={onSubmit} className="mt-8 space-y-6" action="#" method="POST">
       <input type="hidden" name="remember" defaultValue="true" />
       <div className="form-group">
         <label htmlFor="full-name" className="sr-only">
@@ -122,13 +108,12 @@ return (
             />
           </div>
           <div className="form-group">
-        <button type="submit" className="submit-button">
-          <LockClosedIcon style={{width:'20px'}}
-          />
-          Signup
-        </button>
-      </div>
-    </form>
-  </div>
-);
+          <button type="submit" className="submit-button">
+            <LockClosedIcon style={{ width: '20px' }} />
+            Signup
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }

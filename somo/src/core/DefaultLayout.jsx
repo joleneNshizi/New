@@ -9,9 +9,9 @@ import { Cog8ToothIcon, BookOpenIcon , ListBulletIcon, UserIcon, BellAlertIcon} 
 export default function DefaultLayout() {
     const { user, token, setUser, setToken, notification } = useStateContext();
 
-    // if (!token) {
-    //   return <Navigate to="/login"/>
-    // }
+    if (!token) {
+      return <Navigate to="/login"/>
+    }
 
     const onLogout = ev => {
         ev.preventDefault()
